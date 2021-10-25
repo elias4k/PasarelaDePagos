@@ -16,9 +16,9 @@ class PaymentController extends Controller
     public function index()
     {
         $items_list = array(
-            array('producto'=>'Monitor 24', 'precio'=>25000, 'cantidad'=> 1),
-            array('producto'=>'Teclado Redragon Yama', 'precio'=>8500, 'cantidad'=> 3),
-            array('producto'=>'Luces RGB', 'precio'=>1700, 'cantidad'=> 7)
+            array('producto'=>'Monitor 24', 'precio'=>25000, 'cantidad'=> 1, 'descripcion'=> 'Monitor Samsung FHD 24 pulgadas', 'categoria_id'=> 7),
+            array('producto'=>'Teclado Redragon Yama', 'precio'=>8500, 'cantidad'=> 3, 'descripcion'=> 'Teclado mecanico, switches outemu purple', 'categoria_id'=> 2),
+            array('producto'=>'Luces RGB', 'precio'=>1700, 'cantidad'=> 7, 'descripcion'=> 'Altas luces led', 'categoria_id'=> 4)
         );
         MercadoPago\SDK::setAccessToken(env("ACCESS_TOKEN"));
         $items = $this->createItems($items_list);
@@ -56,6 +56,8 @@ class PaymentController extends Controller
             $item->title = $i['producto'];
             $item->quantity = $i['cantidad'];
             $item->unit_price = $i['precio'];
+            $item->description = $i['descripcion'];
+            $item->category_id = $i['categoria_id'];
             array_push($items,$item);
         }
         return $items;
